@@ -1,0 +1,722 @@
+[gd_resource type="VisualShader" load_steps=61 format=3 uid="uid://bb4igfmkvxtum"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_qr0nk"]
+parameter_name = "NormalMap"
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_okpvl"]
+source = 5
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_wxqfn"]
+size = Vector2(440, 240)
+expression = "//ValuesToon
+
+/*
+MIT License
+Copyright (c) 2024 sselecirPyM
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_6wkqc"]
+parameter_name = "Albedo"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_knvyg"]
+source = 5
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_qr1bt"]
+parameter_name = "Roughness"
+hint = 1
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_7d0lq"]
+parameter_name = "AO1"
+hint = 1
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_gtjoh"]
+parameter_name = "AmbientSpecular"
+hint = 1
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_dkh2x"]
+varying_name = "RealAlbedo"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_b3q7r"]
+parameter_name = "AmbientColor"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_0nnk6"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.001, 0.001, 0.001)]
+operator = 6
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5h1f6"]
+input_name = "light_color"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_sdlqh"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_g0sl6"]
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_i2wrj"]
+constant = 3.14159
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_k2nsd"]
+parameter_name = "DiffuseTone"
+texture_type = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_u4bum"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_i5u8q"]
+default_input_values = [0, 0.0, 1, 5.0]
+operator = 5
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_6ak3q"]
+size = Vector2(580, 440)
+expression = "vec3 H = normalize(view+light);
+vec3 R = reflect(-view,normal);
+NdotV = clamp(dot(normal,view),0.0,1.0);
+NdotH = clamp(dot(normal,H),0.0,1.0);
+NdotL = clamp(dot(normal,light),0.0,1.0);
+RdotL = clamp(dot(R,light),0.0,1.0);
+N_LdotV = dot(view,-light) * 0.5 + 0.5;
+NdotLE = dot(normal,light) * 0.5 + 0.5;"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_eryqt"]
+
+[sub_resource type="VisualShaderNodeVaryingGetter" id="VisualShaderNodeVaryingGetter_jchbv"]
+varying_name = "RealAlbedo"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ulpu0"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2wlyj"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xs63m"]
+input_name = "view"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_0s05b"]
+parameter_name = "SpecularTone"
+texture_type = 1
+color_default = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_u3m4e"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_5jkum"]
+parameter_name = "RimTone"
+texture_type = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_e3021"]
+default_input_values = [0, 1.0, 1, 0.0]
+operator = 1
+
+[sub_resource type="VisualShaderNodeVaryingGetter" id="VisualShaderNodeVaryingGetter_vr0yy"]
+varying_name = "RealAlbedo"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_chbp1"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_03rcn"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_72vgv"]
+parameter_name = "RimTint"
+hint = 1
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_nbmuu"]
+parameter_name = "RimEnergy"
+color_default = 1
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_eneyd"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ioskn"]
+input_name = "attenuation"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_nieti"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_v3rsg"]
+input_name = "light"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_0md6w"]
+input_name = "light_color"
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_fstan"]
+default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+expanded_output_ports = [0]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_d311y"]
+parameter_name = "UseShadow"
+default_value_enabled = true
+default_value = true
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_ol44b"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_k1uhy"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_fw3wm"]
+parameter_name = "RimEnergyLightSpecular"
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qacap"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_52t5q"]
+input_name = "diffuse"
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_cxmiv"]
+operator = 3
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_v5tdn"]
+input_name = "light_color"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_osg7g"]
+input_name = "light_is_directional"
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_kjtyn"]
+default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_f4keo"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_c51of"]
+input_name = "attenuation"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_nd7v3"]
+operator = 3
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_03c06"]
+input_name = "albedo"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_n3grl"]
+size = Vector2(500, 320)
+expression = "output0 = input0 * input1 * input2 * input3 * input4;"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_wxnv3"]
+size = Vector2(520, 360)
+expression = "output0 = input0 * input1 * input2 * input3;"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_dwe2r"]
+parameter_name = "RimEnergyLightTransparent"
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_86oe3"]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_8iqvw"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ebhsf"]
+input_name = "attenuation"
+
+[sub_resource type="VisualShaderNodeVaryingGetter" id="VisualShaderNodeVaryingGetter_2j7bg"]
+varying_name = "RealAlbedo"
+varying_type = 4
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_disabled;
+
+
+// Varyings
+varying vec3 RealAlbedo;
+
+uniform vec4 AmbientColor : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform float Roughness : hint_range(0, 1) = 1;
+uniform float AmbientSpecular : hint_range(0, 1) = 0.5;
+uniform float AO1 : hint_range(0, 1) = 1;
+uniform sampler2D NormalMap : hint_normal;
+uniform sampler2D Albedo : source_color;
+uniform bool UseShadow = true;
+uniform sampler2D DiffuseTone : source_color, repeat_disable;
+uniform sampler2D SpecularTone : source_color, hint_default_black, repeat_disable;
+uniform sampler2D RimEnergyLightSpecular : repeat_disable;
+uniform sampler2D RimEnergy : hint_default_black, repeat_disable;
+uniform sampler2D RimTone : source_color, repeat_disable;
+uniform float RimTint : hint_range(0, 1) = 0;
+uniform sampler2D RimEnergyLightTransparent : repeat_disable;
+
+
+
+void fragment() {
+// ColorParameter:8
+	vec4 n_out8p0 = AmbientColor;
+
+
+// VectorOp:9
+	vec3 n_in9p1 = vec3(0.00100, 0.00100, 0.00100);
+	vec3 n_out9p0 = max(vec3(n_out8p0.xyz), n_in9p1);
+
+
+// FloatParameter:4
+	float n_out4p0 = Roughness;
+
+
+// FloatParameter:6
+	float n_out6p0 = AmbientSpecular;
+
+
+// FloatParameter:5
+	float n_out5p0 = AO1;
+
+
+	vec4 n_out11p0;
+// Texture2D:11
+	n_out11p0 = texture(NormalMap, UV);
+
+
+// Output:0
+	ALBEDO = n_out9p0;
+	ROUGHNESS = n_out4p0;
+	SPECULAR = n_out6p0;
+	AO = n_out5p0;
+	NORMAL_MAP = vec3(n_out11p0.xyz);
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(Albedo, UV);
+
+
+// VaryingSetter:7
+	RealAlbedo = vec3(n_out3p0.xyz);
+
+
+}
+
+void light() {
+// Input:61
+	vec3 n_out61p0 = DIFFUSE_LIGHT;
+
+
+// Input:70
+	vec3 n_out70p0 = ALBEDO;
+
+
+// VectorOp:75
+	vec3 n_out75p0 = n_out61p0 * n_out70p0;
+
+
+// Input:10
+	vec3 n_out10p0 = LIGHT_COLOR;
+
+
+// FloatConstant:14
+	float n_out14p0 = 3.141590;
+
+
+// VectorOp:13
+	vec3 n_out13p0 = n_out10p0 / vec3(n_out14p0);
+
+
+// BooleanParameter:54
+	bool n_out54p0 = UseShadow;
+
+
+// Input:48
+	float n_out48p0 = ATTENUATION;
+
+
+// Input:4
+	vec3 n_out4p0 = NORMAL;
+
+
+// Input:3
+	vec3 n_out3p0 = VIEW;
+
+
+// Input:5
+	vec3 n_out5p0 = LIGHT;
+
+
+	float n_out2p0;
+	float n_out2p1;
+	float n_out2p2;
+	float n_out2p3;
+	float n_out2p4;
+	float n_out2p5;
+// Expression:2
+	n_out2p0 = 0.0;
+	n_out2p1 = 0.0;
+	n_out2p2 = 0.0;
+	n_out2p3 = 0.0;
+	n_out2p4 = 0.0;
+	n_out2p5 = 0.0;
+	{
+		vec3 H = normalize(n_out3p0+n_out5p0);
+		vec3 R = reflect(-n_out3p0,n_out4p0);
+		n_out2p0 = clamp(dot(n_out4p0,n_out3p0),0.0,1.0);
+		n_out2p2 = clamp(dot(n_out4p0,H),0.0,1.0);
+		n_out2p1 = clamp(dot(n_out4p0,n_out5p0),0.0,1.0);
+		n_out2p3 = clamp(dot(R,n_out5p0),0.0,1.0);
+		n_out2p4 = dot(n_out3p0,-n_out5p0) * 0.5 + 0.5;
+		n_out2p5 = dot(n_out4p0,n_out5p0) * 0.5 + 0.5;
+	}
+
+
+// VectorOp:49
+	vec3 n_out49p0 = vec3(n_out48p0) * vec3(n_out2p5);
+
+
+	vec3 n_out53p0;
+// Switch:53
+	n_out53p0 = mix(vec3(n_out2p5), n_out49p0, float(n_out54p0));
+
+
+// VectorCompose:55
+	float n_in55p1 = 0.00000;
+	vec2 n_out55p0 = vec2(n_out53p0.x, n_in55p1);
+
+
+	vec4 n_out17p0;
+// Texture2D:17
+	n_out17p0 = texture(DiffuseTone, n_out55p0);
+
+
+// VectorOp:28
+	vec3 n_out28p0 = n_out13p0 * vec3(n_out17p0.xyz);
+
+
+// VaryingGetter:9
+	vec3 n_out9p0 = RealAlbedo;
+
+
+// VectorOp:12
+	vec3 n_out12p0 = n_out28p0 * n_out9p0;
+
+
+// Input:52
+	vec3 n_out52p0 = LIGHT_COLOR;
+
+
+// FloatOp:18
+	float n_in18p1 = 5.00000;
+	float n_out18p0 = pow(n_out2p2, n_in18p1);
+
+
+	vec4 n_out29p0;
+// Texture2D:29
+	n_out29p0 = texture(SpecularTone, vec2(n_out18p0));
+
+
+// VaryingGetter:27
+	vec3 n_out27p0 = RealAlbedo;
+
+
+// Input:76
+	float n_out76p0 = ATTENUATION;
+
+
+	vec3 n_out72p0;
+// Expression:72
+	n_out72p0 = vec3(0.0, 0.0, 0.0);
+	{
+		n_out72p0 = n_out52p0 * vec3(n_out29p0.xyz) * n_out27p0 * vec3(n_out76p0);
+	}
+
+
+// Input:65
+	bool n_out65p0 = LIGHT_IS_DIRECTIONAL;
+
+
+// Input:63
+	vec3 n_out63p0 = LIGHT_COLOR;
+
+
+	vec4 n_out58p0;
+// Texture2D:58
+	n_out58p0 = texture(RimEnergyLightSpecular, vec2(n_out2p2));
+
+
+// FloatOp:35
+	float n_in35p0 = 1.00000;
+	float n_out35p0 = n_in35p0 - n_out2p0;
+
+
+	vec4 n_out43p0;
+// Texture2D:43
+	n_out43p0 = texture(RimEnergy, vec2(n_out35p0));
+
+
+	vec4 n_out32p0;
+// Texture2D:32
+	n_out32p0 = texture(RimTone, vec2(n_out35p0));
+
+
+// VaryingGetter:38
+	vec3 n_out38p0 = RealAlbedo;
+
+
+// FloatParameter:41
+	float n_out41p0 = RimTint;
+
+
+// Mix:40
+	vec3 n_out40p0 = mix(vec3(n_out32p0.xyz), n_out38p0, vec3(n_out41p0));
+
+
+	vec4 n_out74p0;
+// Texture2D:74
+	n_out74p0 = texture(RimEnergyLightTransparent, vec2(n_out2p4));
+
+
+	vec3 n_out71p0;
+// Expression:71
+	n_out71p0 = vec3(0.0, 0.0, 0.0);
+	{
+		n_out71p0 = n_out63p0 * vec3(n_out58p0.xyz) * vec3(n_out43p0.xyz) * n_out40p0 * vec3(n_out74p0.xyz);
+	}
+
+
+// Input:68
+	float n_out68p0 = ATTENUATION;
+
+
+// VectorOp:67
+	vec3 n_out67p0 = n_out71p0 * vec3(n_out68p0);
+
+
+	vec3 n_out66p0;
+// Switch:66
+	n_out66p0 = mix(n_out67p0, n_out71p0, float(n_out65p0));
+
+
+// VectorOp:56
+	vec3 n_out56p0 = n_out72p0 + n_out66p0;
+
+
+// VectorOp:21
+	vec3 n_out21p0 = n_out12p0 + n_out56p0;
+
+
+// ColorOp:62
+	vec3 n_out62p0 = max(n_out75p0, n_out21p0);
+
+
+// VectorOp:69
+	vec3 n_out69p0 = n_out62p0 / n_out70p0;
+
+
+// Output:0
+	DIFFUSE_LIGHT = n_out69p0;
+
+
+}
+"
+modes/specular = 2
+varyings/RealAlbedo = "1,4"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_6wkqc")
+nodes/fragment/2/position = Vector2(-620, -80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_knvyg")
+nodes/fragment/3/position = Vector2(-320, 0)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_qr1bt")
+nodes/fragment/4/position = Vector2(-300, 220)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_7d0lq")
+nodes/fragment/5/position = Vector2(-280, 500)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_gtjoh")
+nodes/fragment/6/position = Vector2(-560, 500)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVaryingSetter_dkh2x")
+nodes/fragment/7/position = Vector2(-100, 0)
+nodes/fragment/8/node = SubResource("VisualShaderNodeColorParameter_b3q7r")
+nodes/fragment/8/position = Vector2(-180, -220)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorOp_0nnk6")
+nodes/fragment/9/position = Vector2(140, -80)
+nodes/fragment/10/node = SubResource("VisualShaderNodeTexture2DParameter_qr0nk")
+nodes/fragment/10/position = Vector2(-360, 820)
+nodes/fragment/11/node = SubResource("VisualShaderNodeTexture_okpvl")
+nodes/fragment/11/position = Vector2(-40, 920)
+nodes/fragment/12/node = SubResource("VisualShaderNodeExpression_wxqfn")
+nodes/fragment/12/position = Vector2(-1040, 100)
+nodes/fragment/12/size = Vector2(440, 240)
+nodes/fragment/12/input_ports = ""
+nodes/fragment/12/output_ports = ""
+nodes/fragment/12/expression = "//ValuesToon
+
+/*
+MIT License
+Copyright (c) 2024 sselecirPyM
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+"
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 0, 0, 3, 5, 0, 0, 6, 6, 0, 0, 4, 3, 0, 7, 0, 8, 0, 9, 0, 9, 0, 0, 0, 10, 0, 11, 2, 11, 0, 0, 9)
+nodes/light/0/position = Vector2(560, 120)
+nodes/light/2/node = SubResource("VisualShaderNodeExpression_6ak3q")
+nodes/light/2/position = Vector2(-3380, -320)
+nodes/light/2/size = Vector2(580, 440)
+nodes/light/2/input_ports = "0,4,normal;1,4,view;2,4,light;"
+nodes/light/2/output_ports = "0,0,NdotV;1,0,NdotL;2,0,NdotH;3,0,RdotL;4,0,N_LdotV;5,0,NdotLE;"
+nodes/light/2/expression = "vec3 H = normalize(view+light);
+vec3 R = reflect(-view,normal);
+NdotV = clamp(dot(normal,view),0.0,1.0);
+NdotH = clamp(dot(normal,H),0.0,1.0);
+NdotL = clamp(dot(normal,light),0.0,1.0);
+RdotL = clamp(dot(R,light),0.0,1.0);
+N_LdotV = dot(view,-light) * 0.5 + 0.5;
+NdotLE = dot(normal,light) * 0.5 + 0.5;"
+nodes/light/3/node = SubResource("VisualShaderNodeInput_xs63m")
+nodes/light/3/position = Vector2(-3700, -240)
+nodes/light/4/node = SubResource("VisualShaderNodeInput_chbp1")
+nodes/light/4/position = Vector2(-3700, -320)
+nodes/light/5/node = SubResource("VisualShaderNodeInput_v3rsg")
+nodes/light/5/position = Vector2(-3700, -160)
+nodes/light/9/node = SubResource("VisualShaderNodeVaryingGetter_2j7bg")
+nodes/light/9/position = Vector2(-1680, -200)
+nodes/light/10/node = SubResource("VisualShaderNodeInput_5h1f6")
+nodes/light/10/position = Vector2(-2280, -560)
+nodes/light/12/node = SubResource("VisualShaderNodeVectorOp_sdlqh")
+nodes/light/12/position = Vector2(-1420, -360)
+nodes/light/13/node = SubResource("VisualShaderNodeVectorOp_g0sl6")
+nodes/light/13/position = Vector2(-1920, -560)
+nodes/light/14/node = SubResource("VisualShaderNodeFloatConstant_i2wrj")
+nodes/light/14/position = Vector2(-2180, -460)
+nodes/light/16/node = SubResource("VisualShaderNodeTexture2DParameter_k2nsd")
+nodes/light/16/position = Vector2(-2480, -120)
+nodes/light/17/node = SubResource("VisualShaderNodeTexture_u4bum")
+nodes/light/17/position = Vector2(-2140, -100)
+nodes/light/18/node = SubResource("VisualShaderNodeFloatOp_i5u8q")
+nodes/light/18/position = Vector2(-2300, 260)
+nodes/light/21/node = SubResource("VisualShaderNodeVectorOp_eryqt")
+nodes/light/21/position = Vector2(-420, 160)
+nodes/light/27/node = SubResource("VisualShaderNodeVaryingGetter_jchbv")
+nodes/light/27/position = Vector2(-1900, 200)
+nodes/light/28/node = SubResource("VisualShaderNodeVectorOp_ulpu0")
+nodes/light/28/position = Vector2(-1620, -360)
+nodes/light/29/node = SubResource("VisualShaderNodeTexture_2wlyj")
+nodes/light/29/position = Vector2(-1980, 520)
+nodes/light/30/node = SubResource("VisualShaderNodeTexture2DParameter_0s05b")
+nodes/light/30/position = Vector2(-2420, 400)
+nodes/light/32/node = SubResource("VisualShaderNodeTexture_u3m4e")
+nodes/light/32/position = Vector2(-2580, 1600)
+nodes/light/33/node = SubResource("VisualShaderNodeTexture2DParameter_5jkum")
+nodes/light/33/position = Vector2(-3040, 1600)
+nodes/light/35/node = SubResource("VisualShaderNodeFloatOp_e3021")
+nodes/light/35/position = Vector2(-2980, 1440)
+nodes/light/38/node = SubResource("VisualShaderNodeVaryingGetter_vr0yy")
+nodes/light/38/position = Vector2(-2600, 1760)
+nodes/light/40/node = SubResource("VisualShaderNodeMix_03rcn")
+nodes/light/40/position = Vector2(-2360, 1720)
+nodes/light/41/node = SubResource("VisualShaderNodeFloatParameter_72vgv")
+nodes/light/41/position = Vector2(-2680, 1840)
+nodes/light/42/node = SubResource("VisualShaderNodeTexture2DParameter_nbmuu")
+nodes/light/42/position = Vector2(-2800, 1180)
+nodes/light/43/node = SubResource("VisualShaderNodeTexture_eneyd")
+nodes/light/43/position = Vector2(-2460, 1280)
+nodes/light/48/node = SubResource("VisualShaderNodeInput_ioskn")
+nodes/light/48/position = Vector2(-3020, -440)
+nodes/light/49/node = SubResource("VisualShaderNodeVectorOp_nieti")
+nodes/light/49/position = Vector2(-2760, -500)
+nodes/light/52/node = SubResource("VisualShaderNodeInput_0md6w")
+nodes/light/52/position = Vector2(-1980, 40)
+nodes/light/53/node = SubResource("VisualShaderNodeSwitch_fstan")
+nodes/light/53/position = Vector2(-2500, -440)
+nodes/light/54/node = SubResource("VisualShaderNodeBooleanParameter_d311y")
+nodes/light/54/position = Vector2(-2880, -680)
+nodes/light/55/node = SubResource("VisualShaderNodeVectorCompose_ol44b")
+nodes/light/55/position = Vector2(-2240, -260)
+nodes/light/56/node = SubResource("VisualShaderNodeVectorOp_k1uhy")
+nodes/light/56/position = Vector2(-580, 320)
+nodes/light/57/node = SubResource("VisualShaderNodeTexture2DParameter_fw3wm")
+nodes/light/57/position = Vector2(-2800, 860)
+nodes/light/58/node = SubResource("VisualShaderNodeTexture_qacap")
+nodes/light/58/position = Vector2(-2460, 1020)
+nodes/light/61/node = SubResource("VisualShaderNodeInput_52t5q")
+nodes/light/61/position = Vector2(-220, -180)
+nodes/light/62/node = SubResource("VisualShaderNodeColorOp_cxmiv")
+nodes/light/62/position = Vector2(260, 0)
+nodes/light/63/node = SubResource("VisualShaderNodeInput_v5tdn")
+nodes/light/63/position = Vector2(-2400, 880)
+nodes/light/65/node = SubResource("VisualShaderNodeInput_osg7g")
+nodes/light/65/position = Vector2(-1760, 920)
+nodes/light/66/node = SubResource("VisualShaderNodeSwitch_kjtyn")
+nodes/light/66/position = Vector2(-1480, 1060)
+nodes/light/67/node = SubResource("VisualShaderNodeVectorOp_f4keo")
+nodes/light/67/position = Vector2(-1620, 1260)
+nodes/light/68/node = SubResource("VisualShaderNodeInput_c51of")
+nodes/light/68/position = Vector2(-1900, 1400)
+nodes/light/69/node = SubResource("VisualShaderNodeVectorOp_nd7v3")
+nodes/light/69/position = Vector2(400, 160)
+nodes/light/70/node = SubResource("VisualShaderNodeInput_03c06")
+nodes/light/70/position = Vector2(-80, 280)
+nodes/light/71/node = SubResource("VisualShaderNodeExpression_n3grl")
+nodes/light/71/position = Vector2(-2220, 1040)
+nodes/light/71/size = Vector2(500, 320)
+nodes/light/71/input_ports = "0,4,input0;1,4,input1;2,4,input2;3,4,input3;4,4,input4;"
+nodes/light/71/output_ports = "0,4,output0;"
+nodes/light/71/expression = "output0 = input0 * input1 * input2 * input3 * input4;"
+nodes/light/72/node = SubResource("VisualShaderNodeExpression_wxnv3")
+nodes/light/72/position = Vector2(-1640, 240)
+nodes/light/72/size = Vector2(520, 360)
+nodes/light/72/input_ports = "0,4,input0;1,4,input1;2,4,input2;3,4,input3;"
+nodes/light/72/output_ports = "0,4,output0;"
+nodes/light/72/expression = "output0 = input0 * input1 * input2 * input3;"
+nodes/light/73/node = SubResource("VisualShaderNodeTexture2DParameter_dwe2r")
+nodes/light/73/position = Vector2(-2800, 540)
+nodes/light/74/node = SubResource("VisualShaderNodeTexture_86oe3")
+nodes/light/74/position = Vector2(-2480, 700)
+nodes/light/75/node = SubResource("VisualShaderNodeVectorOp_8iqvw")
+nodes/light/75/position = Vector2(160, -180)
+nodes/light/76/node = SubResource("VisualShaderNodeInput_ebhsf")
+nodes/light/76/position = Vector2(-1960, 320)
+nodes/light/connections = PackedInt32Array(3, 0, 2, 1, 4, 0, 2, 0, 5, 0, 2, 2, 9, 0, 12, 1, 14, 0, 13, 1, 16, 0, 17, 2, 17, 0, 28, 1, 28, 0, 12, 0, 30, 0, 29, 2, 33, 0, 32, 2, 2, 0, 35, 1, 2, 2, 18, 0, 35, 0, 32, 0, 38, 0, 40, 1, 32, 0, 40, 0, 13, 0, 28, 0, 10, 0, 13, 0, 48, 0, 49, 0, 54, 0, 53, 0, 49, 0, 53, 1, 42, 0, 43, 2, 35, 0, 43, 0, 53, 0, 55, 0, 55, 0, 17, 0, 18, 0, 29, 0, 56, 0, 21, 1, 57, 0, 58, 2, 2, 2, 58, 0, 41, 0, 40, 2, 65, 0, 66, 0, 67, 0, 66, 2, 68, 0, 67, 1, 70, 0, 69, 1, 62, 0, 69, 0, 43, 0, 71, 2, 58, 0, 71, 1, 63, 0, 71, 0, 71, 0, 66, 1, 71, 0, 67, 0, 40, 0, 71, 3, 66, 0, 56, 1, 52, 0, 72, 0, 27, 0, 72, 2, 72, 0, 56, 0, 73, 0, 74, 2, 74, 0, 71, 4, 2, 4, 74, 0, 2, 5, 49, 1, 2, 5, 53, 2, 29, 0, 72, 1, 21, 0, 62, 1, 12, 0, 21, 0, 70, 0, 75, 1, 61, 0, 75, 0, 75, 0, 62, 0, 69, 0, 0, 0, 76, 0, 72, 3)
